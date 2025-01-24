@@ -15,19 +15,19 @@ const Statistics = () => {
       <FilterBar />
 
       <div className="flex flex-wrap gap-4 p-4">
-        <div className="w-full md:w-[48%]">
+        <div className="w-full md:w-[48%] border border-slate-200 rounded-[20px] p-[10px]">
           <MoviesByGenre movies={movies} />
         </div>
-        <div className="w-full md:w-[48%]">
+        <div className="w-full md:w-[48%]  border border-slate-200 rounded-[20px] p-[10px]">
           <MoviesByYear movies={movies} />
         </div>
-        <div className="w-full md:w-[48%]">
+        <div className="w-full md:w-[48%]  border border-slate-200 rounded-[20px] p-[10px]">
           <MoviesByYearGenre movies={movies} />
         </div>
-        <div className="w-full md:w-[48%]">
+        <div className="w-full md:w-[48%]  border border-slate-200 rounded-[20px] p-[10px]">
           <CountryLanguageInsights movies={movies} />
         </div>
-        <div className="w-full md:w-[48%]">
+        <div className="w-full md:w-[48%]  border border-slate-200 rounded-[20px] p-[10px]">
           <TopPerformers movies={movies} />
         </div>
       </div>
