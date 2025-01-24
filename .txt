@@ -1,0 +1,84 @@
+Project Documentation
+
+1. Overview  
+   This project is a movie dashboard application designed to visualize movie data and provide filtering capabilities. It uses React and Vite for a fast development experience, leveraging modern ECMAScript modules and a streamlined build process.
+
+2. Project Structure & Setup  
+   - Framework: React 18+  
+   - Build Tool: Vite  
+     - Quick startup, hot module replacement, and minimal configuration compared to older bundlers.  
+   - Styling: Tailwind CSS for utility-first, responsive design.  
+   - State Management: Redux Toolkit, including RTK Query for fetching data from an API.  
+   - Data Visualization: react-chartjs-2 on top of Chart.js.  
+
+   Installation & Running Locally  
+   - Install Dependencies:
+     npm install
+   - Start Development Server:
+     npm run dev
+   - Open your browser to the provided local URL (e.g., http://127.0.0.1:5173).
+
+3. Data Flow & Architecture  
+   - Data Fetching:  
+     Implemented using RTK Query via `movieApiSlice`. We define endpoints for fetching movies based on filters (start date, end date, genres, etc.) as well as a separate endpoint for fetching genres.
+
+   - Global State:  
+     Managed with Redux Toolkit slices. `movieSlice.js` holds the current list of movies, pagination (page), and filter states. Slices simplify reducer logic and handle immutability under the hood.
+
+   - Filtering Logic:  
+     A FilterBar component uses Formik for form handling and validation (Yup). On submit, the filter data is dispatched to Redux (setting `page` to 1), triggering a refetch of movies with new parameters. If `page > 1`, new results are appended to the store; otherwise, the results replace the current list.
+
+   - Charts & Visualizations:  
+     Multiple chart components (e.g., MoviesByYear, MoviesByGenre, TopPerformers) read data from the Redux store or from the result of RTK Query. They transform the data (e.g., grouping by year, genre, or rating) and feed it into react-chartjs-2 config objects.
+
+   - Routing:  
+     Using React Router to navigate between pages such as Home, Statistics, etc. A sidebar or hamburger menu triggers route changes.
+
+4. Key Components  
+   - FilterBar  
+     Offers fields for date range, minimum score, sorting options, and a genre selection. Uses Formik + Yup for validation. Dispatches the filter changes to Redux. On each change, sets `page` to 1 (so new filter results start at the beginning).
+
+   - Movie Cards  
+     Display core details for each movie, such as title, release date, and rating. Responsive grid layout ensures a uniform appearance across screen sizes.
+
+   - Charts  
+     - MoviesByGenre: Aggregates the number of movies per genre.  
+     - MoviesByYear: Bar chart showing how many movies are released each year.  
+     - MoviesByYearGenre: Grouped/stacked bars combining year and genre data.  
+     - CountryLanguageInsights (optional): Pie charts or other charts to show distribution by country/language.  
+     - TopPerformers: Horizontal bar chart showing top-rated movies.
+
+   - Sidebar / Hamburger Menu  
+     On desktop, the sidebar is visible on the left. On mobile, it’s replaced by a hamburger icon that opens an overlay drawer.
+
+5. Design Decisions & Trade-Offs  
+   - Vite over Create React App:  
+     Faster dev server & build times. ES modules by default, simpler config.  
+   - Redux Toolkit:  
+     Chosen over plain Redux to reduce boilerplate. RTK Query seamlessly handles caching, loading states, and background refetching.  
+   - Formik + Yup:  
+     Simplifies form management and validation logic. Less error-prone than manual state handling for forms.  
+   - Chart.js:  
+     A mature, widely used library with good community support. react-chartjs-2 provides convenient React bindings.  
+   - Tailwind CSS:  
+     Utility-first approach speeds up styling and eliminates the need to maintain a large custom CSS file.  
+   - Filtering & Pagination:  
+     When filters change, we reset to `page = 1`. If an infinite scroll or load-more approach is desired, we can append results if `page > 1`. This approach is simpler than advanced cursor-based pagination but can be less efficient for extremely large datasets.  
+   - Testing:  
+     Decided to set up Vitest (recommended for Vite) or Jest + Babel. Testing focuses on core components (filter logic, chart data transformations, etc.), with light coverage on UI.
+
+6. Future Enhancements  
+   - Authentication: If we wanted user-specific watchlists or saved filter states.  
+   - Server-Side Rendering: Could be beneficial for SEO or performance in some cases.  
+   - Offline Capabilities: Using a service worker or caching if needed.
+
+7. Conclusion  
+This dashboard demonstrates a modular, scalable approach using React + Vite. By leveraging:  
+- Redux Toolkit for state management,  
+- RTK Query for data fetching,  
+- Tailwind for styling, and  
+- Chart.js for visualizations,  
+
+We achieve a responsive, maintainable UI that can be expanded with additional features or data sources. If you have any questions or need further clarification, feel free to reach out.
+
+Thank you for reviewing this documentation!

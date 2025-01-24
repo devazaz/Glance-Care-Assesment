@@ -13,7 +13,7 @@ function MovieDetailsCard() {
     <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-8">
       {/* Movie Poster */}
       <div
-        className="h-64 bg-cover bg-center"
+        className="h-72 bg-contain bg-center"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/w1280${movie.backdrop_path})`,
         }}
